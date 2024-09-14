@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Morphing Animation</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    svg {
+      width: 500px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+
+<svg id="morphingSvg" viewBox="0 0 500 200">
+  <path id="textPath" fill="none" stroke="#000" stroke-width="2"></path>
+</svg>
+
+<script>
+  const textPath = document.getElementById("textPath");
+
+  // Define the paths for the word "Hello" in three different fonts
+  const paths = [
+    "M3.71616 135C2.81458 135 2.36379 134.549 2.36379 133.648V125.128C2.36379 124.226 2.81458 123.775 3.71616 123.775H15.3465C20.0347 123.775 23.5058 122.693 25.7598 120.53C28.1039 118.276 29.2759 114.76 29.2759 109.981V33.1666C29.2759 32.265 29.7267 31.8142 30.6283 31.8142H40.3654C41.2669 31.8142 41.7177 32.265 41.7177 33.1666V110.116C41.7177 115.706 40.9514 120.304 39.4187 123.911C37.886 127.517 35.1813 130.267 31.3045 132.16C27.5179 134.053 22.1985 135 15.3465 135H3.71616Z...",
+    "M47.6682 65.9721C47.8485 65.4311 47.9386 64.7098 47.9386 63.8083C47.9386 62.3657 47.5329 61.1937 46.7215 60.2921C46.0002 59.3905 44.8282 58.3988 43.2053 57.3169C41.853 56.3252 40.8612 55.4687 40.2301 54.7474C39.6892 54.0261 39.5539 53.1696 39.8244 52.1779C40.0949 50.9157 40.7711 50.0592 41.853 49.6084C42.9349 49.1576 44.6479 48.9322 46.992 48.9322H85.3993C87.2926 48.9322 88.7351 49.2478 89.7268 49.8789C90.8087 50.51 91.3497 51.3214 91.3497 52.3131C91.3497 52.7639 91.2144 53.3499 90.944 54.0712C90.6735 54.7023 90.2678 55.2883 89.7268 55.8293Z...",
+    "M65.7899 0.5723C67.1423 0.5723 67.8185 1.24848 67.8185 2.60086V6.65796C67.8185 8.01033 67.1423 8.68652 65.7899 8.68652H64.9785C58.0814 9.09223 55.7824 14.5017 55.7824 21.534V72.5183C55.7824 86.7182 51.1843 103.488 24.6779 103.488C6.55613 103.488 0.876182 89.0173 0.876182 85.3659C0.876182 84.284 1.55237 82.9316 3.03997 82.1202Z..."
+  ];
+
+  let currentIndex = 0;
+
+  // Function to morph the text
+  function morphText() {
+    anime({
+      targets: textPath,
+      d: paths[currentIndex],
+      duration: 2000,
+      easing: 'easeInOutQuad',
+      complete: () => {
+        currentIndex = (currentIndex + 1) % paths.length; // Loop through paths
+        setTimeout(morphText, 1000); // Morph again after 1s delay
+      }
+    });
+  }
+
+  // Start the morphing animation
+  morphText();
+</script>
+
+</body>
+</html>
